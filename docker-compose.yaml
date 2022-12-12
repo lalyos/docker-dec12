@@ -6,7 +6,7 @@ services:
       - "80:80"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      
+
   mydb:
     environment:
     - MYSQL_ROOT_PASSWORD=secret
@@ -19,6 +19,8 @@ services:
   adminer:
     image: adminer
     restart: always
+    environment:
+      - VIRTUAL_HOST=adminer.lvh.me
     ports:
       - 8080:8080
 volumes:
