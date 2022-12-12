@@ -1,5 +1,12 @@
 version: '3.3'
 services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      
   mydb:
     environment:
     - MYSQL_ROOT_PASSWORD=secret
@@ -8,7 +15,7 @@ services:
     - vipdb:/var/lib/mysql
     - ./sql:/docker-entrypoint-initdb.d
     image: mysql
-    
+
   adminer:
     image: adminer
     restart: always
