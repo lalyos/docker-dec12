@@ -8,3 +8,11 @@ services:
     - vipdb:/var/lib/mysql
     - ./sql:/docker-entrypoint-initdb.d
     image: mysql
+    
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+volumes:
+  vipdb: 
