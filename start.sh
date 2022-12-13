@@ -1,6 +1,7 @@
 #!/bin/bash
 
-cat > /var/www/html/index.html <<EOF
+
+cat > ${WWW_DIR}/index.html <<EOF
 <html>
 <head>
     <title>Demo</title>
