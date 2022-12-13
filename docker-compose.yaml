@@ -1,11 +1,27 @@
 version: '3.3'
 services:
+  # grok:
+  #   image: lalyos/grok
+  #   #command: -h grok.tmx.best -p 80 80 '*.lalyos'
+  #   command: -h grok.tmx.best -p 80 80 '*.lalyos'
+  #   network_mode: "service:nginx-proxy"
+
   nginx-proxy:
     image: jwilder/nginx-proxy
     ports:
       - "80:80"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
+
+  dinner:
+    image: lunch:${TAG-alpine}
+    ports:
+    - 80
+    environment:
+    - TITLE=${TITLE-lunch}
+    - COLOR=${COLOR-gray}
+    - BODY=${BODY-use BODY/COLOR/TITLE env vars}
+    - VIRTUAL_HOST=lorinc.${VIRTUAL_DOMAIN-lvh.me}
 
   mydb:
     environment:
@@ -20,8 +36,9 @@ services:
     image: adminer
     restart: always
     environment:
-      - VIRTUAL_HOST=adminer.lvh.me
+    # - VIRTUAL_HOST=adminer.lvh.me
+    - VIRTUAL_HOST=adminer.${VIRTUAL_DOMAIN}
     ports:
-      - 8080:8080
+    - 8080
 volumes:
   vipdb: 
