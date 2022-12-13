@@ -1,0 +1,16 @@
+version: '3.3'
+services:
+  grok:
+    image: lalyos/grok
+    command: -h grok.tmx.best -b 0.0.0.0 -p 80 80 'xxx'
+    network_mode: "service:kedd"
+
+  kedd:
+    image: lalyos/lunch:alpine
+    ports:
+    - 80
+    environment:
+    - TITLE=Kedd
+    - COLOR=cyan
+    - VIRTUAL_HOST=xxx.grok.tmx.best
+
